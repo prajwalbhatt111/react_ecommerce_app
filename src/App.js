@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
-
+import {Routes,Route} from 'react-router-dom'
+import Navbar from './components/Navbar';
+import Home from './home/Home';
+import Singlecategory from './home/category/Singlecategory';
+import { createContext,useState } from 'react';
+import Signin from './signinandsignup/Signin';
+import Signup from './signinandsignup/Signup';
+import Protectedroute from './protected/Protectedroute';
+import Search from './components/Search';
+export const Context=createContext()
 function App() {
+  const[cartitems,setCartItems]=useState([])
+  console.log(cartitems)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <Context.Provider value={{cartitems,setCartItems}}>
+    <Navbar />
+    <Routes>
+      <Route path='/' element={<Home />}/>
+     <Route  path='/products/category/:items' element={<Singlecategory />}/>
+     <Route path='/signin' element={<Signin />} />
+     <Route path='/signup' element={<Signup />} />
+     <Route path='/search' element={<Search />} />
+    </Routes>
+    </Context.Provider>
+    
+    
+    </>
   );
 }
 
